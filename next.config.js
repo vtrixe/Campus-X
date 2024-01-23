@@ -1,8 +1,4 @@
-module.exports = {
-    experimental: {
-        serverActions: true,
-      },
-    images: {
-      domains: ['cdn.dribbble.com'],
-    },
-  };
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
+
+module.exports = nextConfig
