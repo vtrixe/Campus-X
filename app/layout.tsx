@@ -7,6 +7,7 @@ import './globals.css'
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
+import { ModalProvider } from '@/components/providers/modal-provider'
 
 const font = Noto_Sans_Georgian({ subsets: ['latin'] })
 
@@ -26,7 +27,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(font.className,
-                "bg-red-300 dark:bg-[#313338]")}>
+                "bg-white dark:bg-black")}>
           <Toaster />
           <ThemeProvider
           attribute='class'
@@ -34,6 +35,8 @@ export default async function RootLayout({
           enableSystem
           storageKey='chat-theme'
           >
+
+            <ModalProvider />
 
           {children}
 

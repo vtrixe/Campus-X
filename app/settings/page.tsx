@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import Navbar from "@/components/ui/Navbar";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition, useState } from "react";
@@ -75,7 +76,10 @@ const SettingsPage = () => {
   }
 
   return ( 
-    <Card className="w-[600px]">
+    <div className="flex justify-center items-center min-h-screen bg-yellow-100 text-black">
+
+
+    <Card className="w-full max-w-md mx-auto bg-blue-300">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">
           ⚙️ Settings
@@ -84,7 +88,7 @@ const SettingsPage = () => {
       <CardContent>
         <Form {...form}>
           <form 
-            className="space-y-6" 
+           className="space-y-6" 
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <div className="space-y-4">
@@ -228,6 +232,7 @@ const SettingsPage = () => {
         </Form>
       </CardContent>
     </Card>
+    </div>
    );
 }
  
