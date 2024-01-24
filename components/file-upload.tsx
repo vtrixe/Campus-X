@@ -1,6 +1,7 @@
 "use client";
 
 import { FileIcon  } from "@radix-ui/react-icons";
+import { X } from "lucide-react"
 import Image from "next/image";
 
 import { UploadDropzone } from "@/lib/uploadthing";
@@ -31,12 +32,10 @@ export const FileUpload = ({
         />
         <button
           onClick={() => onChange("")}
-          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
+          className="bg-black text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
           type="button"
         >
-          <div className="h-4 w-4">
-            X
-          </div>
+           <X className="h-4 w-4" />
         </button>
       </div>
     )
@@ -56,12 +55,10 @@ export const FileUpload = ({
         </a>
         <button
           onClick={() => onChange("")}
-          className="bg-rose-500 text-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm"
+          className="bg-black text-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm"
           type="button"
         >
-          <div className="h-4 w-4">
-            X
-          </div>
+         <X className="h-4 w-4" />
         </button>
       </div>
     )

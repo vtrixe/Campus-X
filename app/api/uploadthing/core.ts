@@ -7,7 +7,11 @@ const f = createUploadthing();
  
 const handleAuth = async () => {
   const user =await currentUser();
-  const {userId}=user.id
+
+  if(!user){
+    return { userId : null};
+  }
+  const userId=user.id
   if (!userId) throw new Error("Unauthorized");
   return { userId: userId };
 }
