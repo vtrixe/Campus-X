@@ -45,8 +45,11 @@ const Navbar = () => {
             <button
               data-tip="Server"
               onClick={() => router.push('/')}
+              className="text-black px-3 py-2 rounded-md text-sm font-medium flex items-center"
+
             >
-              <ServerCog />
+              <ServerCog className="h-5 w-5 mr-1" />
+              Servers
             </button>
             <Tooltip place="bottom" />
           </div>
