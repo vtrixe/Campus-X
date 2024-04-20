@@ -4,7 +4,10 @@ import {
   CardContent, 
   CardHeader
 } from "@/components/ui/card";
+import { Button } from "./ui/button";
 import { Badge } from "@/components/ui/badge";
+import Router, { useRouter } from "next/navigation";
+
 
 interface UserInfoProps {
   user?: ExtendedUser;
@@ -14,7 +17,11 @@ interface UserInfoProps {
 export const UserInfo = ({
   user,
   label,
-}: UserInfoProps) => {
+}: UserInfoProps
+
+) => {
+
+  const router=useRouter();
   return (
     <Card className="w-[600px] shadow-md">
       <CardHeader>
@@ -57,14 +64,19 @@ export const UserInfo = ({
         </div>
 
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-          <p className="text-sm font-medium">
-            Two Factor Authentication
-          </p>
-          <Badge 
-            variant={user?.isTwoFactorEnabled ? "success" : "destructive"}
+        
+          <Button
+          onClick={()=>{
+
+
+            router.push('/dashboard')
+
+
+            
+          }}
           >
-            {user?.isTwoFactorEnabled ? "ON" : "OFF"}
-          </Badge>
+            Join or Create your Server
+          </Button>
         </div>
       </CardContent>
     </Card>

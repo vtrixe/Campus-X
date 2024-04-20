@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ModeToggle } from '../mode-toggle';
 import { UserButton } from '../auth/user-button';
 import { ServerCog } from 'lucide-react';
+import { FcOrganization } from 'react-icons/fc';
 
 const Navbar = () => {
   const router=useRouter();
@@ -50,6 +51,15 @@ const Navbar = () => {
             >
               <ServerCog className="h-5 w-5 mr-1" />
               Servers
+            </button>
+            <button
+              data-tip="Server"
+              onClick={() => router.push('/organizations/organization-profile')}
+              className="text-black px-3 py-2 rounded-md text-sm font-medium flex items-center"
+
+            >
+              <FcOrganization className="h-5 w-5 mr-1" />
+              Organizations and  Teams
             </button>
             <Tooltip place="bottom" />
           </div>

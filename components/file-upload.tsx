@@ -11,7 +11,7 @@ import "@uploadthing/react/styles.css";
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
-  endpoint: "messageFile" | "serverImage"
+  endpoint: "messageFile" | "serverImage"  | "organizationImage"
 }
 
 export const FileUpload = ({

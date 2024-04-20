@@ -1,48 +1,10 @@
 "use client";
 
-
 import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from 'react';
-import { getrOrganization } from '@/actions/get-organization';
-
-
-interface Profile {
-  id: string;
-  userId: string;
-  name?: string | null;
-  imageUrl?: string | null;
-  email?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  role: 'OWNER' | 'ADMIN' | 'MEMBER';
-}
-
-interface Organization {
-  id: string;
-  name: string;
-  description?: string | null;
-  image?: string | null;
-  organizationDomain?: string;
-  password?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  profile: Profile[];
-}
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-
-
+import { useEffect } from "react";
 
 import {
   Dialog,
@@ -65,7 +27,6 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import { RegisterOrganizationForm } from "../auth/register-organization";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -74,16 +35,14 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, {
     message: "Server image is required."
   })
-
 });
 
-
-
-export const CreateServerModal = () => {
-  const { isOpen, onClose, type } = useModal();
+export const EditServerModal = () => {
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-
+  const isModalOpen = isOpen && type === "editServer";
+  const { server } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -93,42 +52,18 @@ export const CreateServerModal = () => {
     }
   });
 
-  
-const [organizations, setOrganizations] = useState<Organization[]>([]);
-const [selectedOrganization, setSelectedOrganization] = useState<Organization | null>(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
-const [error, setError] = useState<string | null>(null);
-
-useEffect(() => {
-  const fetchOrgs = async () => {
-    try {
-      const response = await getrOrganization(); 
-      setOrganizations(response as unknown as Organization[]);
-    } catch (error) {
-      console.error('Failed to fetch organizations', error);
-      setError('Failed to load organization data');
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name);
+      form.setValue("imageUrl", server.imageUrl);
     }
-  };
-
-  fetchOrgs();
-}, []);
-
-const handleOpenModal = (org: Organization) => {
-  setSelectedOrganization(org);
-  setIsModalOpen(true);
-};
-
-const handleCloseModal = () => {
-  setIsModalOpen(false);
-};
-
-
+  }, [server, form]);
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.patch(`/api/servers/${server?.id}`, values);
 
       form.reset();
       router.refresh();
@@ -197,50 +132,10 @@ const handleCloseModal = () => {
                   </FormItem>
                 )}
               />
-              
-    <>
-
-    <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel
-                      className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70"
-                    >
-                      Organization
-                    </FormLabel>
-                    <FormControl>
-                      <Input  />
-
-                      <DropdownMenu>
-        <DropdownMenuTrigger >
-          <button className="bg-blue-500 text-white py-2 px-4 rounded-md">Select Organization</button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white shadow-lg rounded-lg py-1">
-          <DropdownMenuLabel className="px-4 py-2 text-sm text-gray-500">My Organizations</DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-gray-200" />
-          {organizations.map((org) => (
-            <DropdownMenuItem key={org.id} className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleOpenModal(org)}>
-              {org.name}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-                    
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-  
-
-     
-    </>
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button  disabled={isLoading}>
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
