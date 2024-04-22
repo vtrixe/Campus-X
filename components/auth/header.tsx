@@ -1,5 +1,5 @@
 import { Poppins } from "next/font/google";
-
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const font = Poppins({
@@ -20,7 +20,7 @@ export const Header = ({
         "text-3xl font-semibold",
         font.className,
       )}>
-        🔐 Auth
+        Collaborator
       </h1>
       <p className="text-muted-foreground text-sm">
         {label}

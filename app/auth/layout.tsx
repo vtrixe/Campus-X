@@ -1,13 +1,19 @@
-const AuthLayout = ({ 
+import { Footer } from "../(landing)/_components/footer";
+import { Navbar } from "../(landing)/_components/navbar";
+const MarketingLayout = ({
   children
-}: { 
-  children: React.ReactNode
+}: {
+  children: React.ReactNode;
 }) => {
-  return ( 
-    <div className="h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
-      {children}
+  return (
+    <div className="h-full bg bg-white dark:bg-black">
+      <Navbar />
+      <main className="h-full flex flex-col items-center justify-center space-y-6">
+        {children}
+      </main>
+      <Footer />
     </div>
-   );
-}
- 
-export default AuthLayout;
+  );
+};
+
+export default MarketingLayout;

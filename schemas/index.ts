@@ -63,22 +63,3 @@ export const RegisterSchema = z.object({
     message: "Name is required",
   }),
 });
-
-export const RegisterOrganizationSchema = z.object({
-  domain: z.string().regex(
-    /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+(org|com|edu|net)$/,
-    {
-      message: "Invalid domain format. Expected format: orgname.org/com/edu/net etc.",
-    }
-  ),
-  image: z.string().min(1, {
-    message: "upload image",
-  }),
-
-  password: z.string().min(6, {
-    message: "Minimum 6 characters required",
-  }),
-  name: z.string().min(1, {
-    message: "Name is required",
-  }),
-});

@@ -1,8 +1,8 @@
 // prisma/schema.prisma
 datasource db {
-  provider  = "postgresql"
+  provider  = "mysql"
   url  	    = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+
 }
 
 generator client {
@@ -14,21 +14,24 @@ enum UserRole {
   USER
 }
 
+
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  accounts      Account[]
-  isTwoFactorEnabled Boolean @default(false)
+  id                  String           @id @default(cuid())
+  name                String?
+  email               String?          @unique
+  emailVerified       DateTime?
+  image               String?
+  password            String?
+  role                UserRole         @default(USER)
+  accounts            Account[]
+  isTwoFactorEnabled  Boolean          @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-    profile              Profile?          
 
+  createdServers      Server[]         @relation("AdminCreatedServers")
+  memberships         Member[]
+
+  channels            Channel[]
 }
-
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -84,66 +87,39 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
-model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  name      String?
-  imageUrl  String?
-  email     String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-   role OrganizationRole @default(MEMBER)
 
-   servers Server[]
-  members Member[]
-  channels Channel[]
-  organization Organization[] 
 
-  user      User     @relation(fields: [userId], references: [id])
 
-  @@map("profiles") // Optional: Custom table name
-}
+
 model Server {
   id String @id @default(uuid())
   name String
   imageUrl String @db.Text
-  inviteCode String @unique
+  inviteCode String? @unique
 
-  profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  adminId String
+  admin User @relation("AdminCreatedServers", fields: [adminId], references: [id], onDelete: Cascade)
 
   members Member[]
   channels Channel[]
 
-  organizationId String // Add this line
-  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade) // Add this line
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@index([profileId])
-  @@index([organizationId]) // Add this line
+  domain    String ?
 }
 
 enum MemberRole {
   ADMIN
-  MEMBER
-  MODERATOR
-  GUEST
-}
-
-enum OrganizationRole {
-  OWNER
-  MEMBER
-  ADMIN
+  LECTURER
+  STUDENT
 }
 
 model Member {
   id String @id @default(uuid())
-  role MemberRole @default(GUEST)
+  role MemberRole @default(STUDENT)
 
-  profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
@@ -157,7 +133,7 @@ model Member {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileId])
+  @@index([userId])
   @@index([serverId])
 }
 
@@ -172,8 +148,8 @@ model Channel {
   name String
   type ChannelType @default(TEXT)
 
-  profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
@@ -183,7 +159,7 @@ model Channel {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileId])
+  @@index([userId])
   @@index([serverId])
 }
 
@@ -224,24 +200,6 @@ model Conversation {
   @@unique([memberOneId, memberTwoId])
 }
 
-
-model Organization {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  description String?  @db.Text
-  image String?
-
-  profile Profile[]
-  organizationDomain String @unique
-  server Server[]
-   password      String?
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-
-
 model DirectMessage {
   id String @id @default(uuid())
   content String @db.Text
@@ -261,3 +219,4 @@ model DirectMessage {
   @@index([memberId])
   @@index([conversationId])
 }
+

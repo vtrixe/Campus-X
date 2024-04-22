@@ -1,18 +1,16 @@
-import { currentUser  } from "@/lib/auth"
+import { currentUser } from "@/lib/auth"
 import { redirect } from "next/navigation";
-
 import { db } from "@/lib/db";
-
 export const initialProfile = async () => {
   const user = await currentUser();
 
   if (!user) {
-    return redirect('/auth/login');
+    return redirect("/auth/login")
   }
 
-  const profile = await db.profile.findUnique({
+  const profile = await db.user.findUnique({
     where: {
-      userId: user.id
+      id : user.id
     }
   });
 
@@ -20,12 +18,12 @@ export const initialProfile = async () => {
     return profile;
   }
 
-  const newProfile = await db.profile.create({
+  const newProfile = await db.user.create({
     data: {
-      userId: user.id,
+      id : user.id,
       name: `${user.name}`,
-      imageUrl: user.image,
-      email: user.email
+      image : user.image,
+      email : user.email
     }
   });
 
