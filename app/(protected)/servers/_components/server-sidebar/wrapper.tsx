@@ -1,4 +1,5 @@
 "use client";
+
 import { useIsClient } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { useServerSidebar } from "@/zustand/use-server-sidebar";
@@ -23,8 +24,9 @@ export const Wrapper = ({ children }: WrapperProps) => {
   return (
     <aside
       className={cn(
-        "fixed right-0 flex flex-col h-full bg-background border-l border-[#2D2E35] z-50",
-        collapsed ? "w-[70px]" : "w-60"
+        "fixed right-0 flex flex-col w-60 h-full bg-background border-l border-[#2D2E35] z-50",
+        collapsed && "w-[70px]",
+        "lg:w-60" // Always collapsed for mobile screens
       )}
     >
       {children}

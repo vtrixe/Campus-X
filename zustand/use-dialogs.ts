@@ -1,12 +1,15 @@
-import { Server } from "@prisma/client";
+import { ChannelType, Server } from "@prisma/client";
 import { create } from "zustand";
 
 
-export type DialogType = "createServerAdmin" | "invite"
+export type DialogType = "createServerAdmin" | "invite" | "editServerAdmin" |"members" | "createChannel" | "leaveServer" |"deleteServer"
+
+
 
 
 interface Data {
     server ?: Server
+    channelType?: ChannelType;
 }
 
 

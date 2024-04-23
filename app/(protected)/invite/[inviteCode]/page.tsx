@@ -20,8 +20,10 @@ const Page = async ({ params, searchParams }: PageProps) => {
     console.log(searchParams.role)
   const { inviteCode } = params;
   const { role } = searchParams;
-
   const profile = await currentUser();
+
+  
+
 
   if (!allowedRoles.includes(role as typeof allowedRoles[number] || "")) {
     return redirect("/");
