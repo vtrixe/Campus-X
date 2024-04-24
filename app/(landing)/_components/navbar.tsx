@@ -16,7 +16,7 @@ export const Navbar = async () => {
           {user ? (
       <>
             <Button size="sm" variant="outline" asChild>
-              <Link href="/home">Dashboard</Link>
+              <Link href="/settings">Dashboard</Link>
             </Button>
             <Button size="sm" variant="outline" asChild>
               <UserButton />
@@ -28,10 +28,10 @@ export const Navbar = async () => {
           ) : (
             <>
               <Button size="sm" variant="outline" asChild>
-                <Link href="/sign-in">Login</Link>
+                <Link href="/auth/login">Login</Link>
               </Button>
               <Button size="sm" asChild>
-                <Link href="/sign-up">Sign Up</Link>
+                <Link href="/auth/signup">Sign Up</Link>
               </Button>
             </>
           )}
