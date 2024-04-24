@@ -25,10 +25,14 @@ export const Navbar = async () => {
           ) : (
             <>
               <Button size='sm' variant='outline' asChild>
-                <Link href='/auth/login'>Login</Link>
+                <Link id='Login' href='/auth/login'>
+                  Login
+                </Link>
               </Button>
               <Button size='sm' asChild>
-                <Link href='/auth/register'>Sign Up</Link>
+                <Link id='SignUp' href='/auth/register'>
+                  Sign Up
+                </Link>
               </Button>
             </>
           )}
