@@ -10,6 +10,8 @@ import { ManageMembers } from "../dialogs/members";
 import { CreateChannel } from "../dialogs/create-channel";
 import { LeaveServer } from "../dialogs/leave-server";
 import { DeleteServer } from "../dialogs/delete-server";
+import { EditChannel } from "../dialogs/edit-channel";
+import { DeleteChannel } from "../dialogs/delete-channel";
 export const Dialogs = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -30,6 +32,8 @@ export const Dialogs = () => {
        <CreateChannel />
        <LeaveServer />
        <DeleteServer />
+       <EditChannel />
+       <DeleteChannel />
     </>
   )
 }

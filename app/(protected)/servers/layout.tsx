@@ -7,18 +7,12 @@ interface ProtectedLayoutProps {
 };
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
-  return ( 
-    <div className="h-full w-full flex flex-col gap-y-10 items-center justify-cente">
-
-
-          <Sidebar />
-  
-        <Container>
-         {children}
-        </Container>
-
-    </div>
-   );
-}
+  return (
+    <div className="">
+ 
+      {children}
+      </div>
+  );
+};
 
 export default ProtectedLayout;

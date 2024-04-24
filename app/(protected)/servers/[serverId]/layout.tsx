@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
-import { Container } from "../_components/container";
 import { ServerSidebar } from "../_components/server-sidebar";
+import { Sidebar } from "../_components/Sidebar";
 
 const ServerIdLayout = async ({
   children,
@@ -21,16 +21,11 @@ const ServerIdLayout = async ({
   }
 
   return (
-    <div className="h-full w-full flex flex-col gap-y-10 items-center justify-cente">
-
-
-    <ServerSidebar serverId={params.serverId} />
-
-  <Container>
-   {children}
-  </Container>
-
-</div>
+    <div className="h-full w-full grid grid-cols-[auto_1fr_auto]">
+      <Sidebar />
+      <main className="p-4">{children}</main>
+      <ServerSidebar serverId={params.serverId} />
+    </div>
   );
 };
 

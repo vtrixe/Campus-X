@@ -1,5 +1,4 @@
 import { Wrapper } from "./wrapper";
-import { NavigationItem } from "./items";
 import { Toggle, ToggleSkeleton } from "./toggle";
 import { currentRole, currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
