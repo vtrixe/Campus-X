@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Navbar } from "./_components/navbar";
-
+import { Container } from "../servers/_components/container";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
@@ -8,17 +8,18 @@ interface ProtectedLayoutProps {
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
   return ( 
+
     <div className="h-full w-full flex flex-col gap-y-10 items-center justify-cente">
-      <Navbar />
+    <Navbar />
 
-  <div className="flex h-full pt-20">
+<div className="flex h-full pt-20">
 
-       
-   
-         {children}
+     
+ 
+       {children}
 
-      </div>
     </div>
+  </div>
    );
 }
 

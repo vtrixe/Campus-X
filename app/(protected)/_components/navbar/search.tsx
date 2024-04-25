@@ -4,7 +4,9 @@ import qs from "query-string";
 import { useState } from "react";
 import { SearchIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-
+import SearchResults from "@/components/search-results";
+import { SearchContext } from "@/components/providers/search-provider";
+import { useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 

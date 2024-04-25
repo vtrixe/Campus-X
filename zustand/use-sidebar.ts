@@ -1,4 +1,3 @@
-// useSidebar.tsx
 import { create } from "zustand";
 
 interface SidebarStore {
@@ -8,7 +7,13 @@ interface SidebarStore {
 }
 
 export const useSidebar = create<SidebarStore>((set) => ({
-  collapsed: true, // Set the default state to collapsed
-  onExpand: () => set(() => ({ collapsed: false })),
-  onCollapse: () => set(() => ({ collapsed: true })),
+  collapsed: typeof window !== "undefined" ? localStorage.getItem("sidebarCollapsed") === "true" : true,
+  onExpand: () => {
+    set(() => ({ collapsed: false }));
+    localStorage.setItem("sidebarCollapsed", "false");
+  },
+  onCollapse: () => {
+    set(() => ({ collapsed: true }));
+    localStorage.setItem("sidebarCollapsed", "true");
+  },
 }));

@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { Dialogs } from '@/components/providers/dialogs'
 import { SearchProvider } from '@/components/providers/search-provider'
+import { SocketProvider } from '@/components/providers/socket-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,9 +33,14 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
             storageKey="stream">
+              <SocketProvider>
+
+           
          <Dialogs />
           <Toaster />
           {children}
+
+          </SocketProvider>
 
           </ThemeProvider>
         </body>
