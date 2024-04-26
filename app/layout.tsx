@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider'
 import { Dialogs } from '@/components/providers/dialogs'
 import { SearchProvider } from '@/components/providers/search-provider'
 import { SocketProvider } from '@/components/providers/socket-provider'
+import { QueryProvider } from '@/components/providers/query-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,7 +39,11 @@ export default async function RootLayout({
            
          <Dialogs />
           <Toaster />
+
+          <QueryProvider>
           {children}
+          </QueryProvider>
+    
 
           </SocketProvider>
 

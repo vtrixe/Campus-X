@@ -1,23 +1,31 @@
 import { NextApiRequest } from "next";
-
-import { NextApiResponseServerIo } from "@/types";
-import { currentProfilePages } from "@/lib/current-profile-pages";
+import { NextApiResponseServerIo, NextApiResponseServerIoPages } from "@/lib/types";
+import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { getSession } from "next-auth/react";
+import { auth } from "@/auth";
+import NextAuth from "next-auth";
+import { currentProfilePages } from "@/lib/current-user-api";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponseServerIo,
+  res: NextApiResponseServerIoPages,
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const profile = await currentProfilePages(req);
+
+    const user = await currentProfilePages(req , res);
+
+    
+
+  
     const { content, fileUrl } = req.body;
     const { serverId, channelId } = req.query;
     
-    if (!profile) {
+    if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }    
   
@@ -38,7 +46,7 @@ export default async function handler(
         id: serverId as string,
         members: {
           some: {
-            profileId: profile.id
+            userId : user.id
           }
         }
       },
@@ -62,7 +70,7 @@ export default async function handler(
       return res.status(404).json({ message: "Channel not found" });
     }
 
-    const member = server.members.find((member) => member.profileId === profile.id);
+    const member = server.members.find((member) => member.userId === user.id);
 
     if (!member) {
       return res.status(404).json({ message: "Member not found" });
@@ -78,7 +86,7 @@ export default async function handler(
       include: {
         member: {
           include: {
-            profile: true,
+            user : true
           }
         }
       }

@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 import { getOrCreateConversation } from "@/lib/conversations";
 import { currentUser } from "@/lib/auth";
 import { ChatHeader } from "../../channels/_components/header";
+import { ChatMessages } from "../../channels/_components/messages";
+import { ChatInput } from "../../channels/_components/input";
 
 
 interface MemberIdPageProps {
@@ -21,7 +23,7 @@ const MemberIdPage = async ({
   params,
   searchParams,
 }: MemberIdPageProps) => {
-  const user = await currentUser();
+const user = await currentUser();
 
 
   const currentMember = await db.member.findFirst({
@@ -31,6 +33,7 @@ const MemberIdPage = async ({
     },
     include: {
       user : true,
+
     },
   });
 
@@ -46,13 +49,13 @@ const MemberIdPage = async ({
 
   const { memberOne, memberTwo } = conversation;
 
-  const otherMember = memberOne.userId === user?.id ? memberTwo : memberOne;
+  const otherMember = memberOne.userId === user?.id? memberTwo : memberOne;
 
   return ( 
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader
-        imageUrl={otherMember.user.image || ""}
-        name={otherMember.user.name || "defaultName"}
+        imageUrl={otherMember.user.name || "defaultImageurl"}
+        name={otherMember.user.name || "defaultname"}
         serverId={params.serverId}
         type="conversation"
       />
@@ -63,11 +66,11 @@ const MemberIdPage = async ({
           audio={true}
         />
       )} */}
-      {/* {!searchParams.video && (
+      {!searchParams.video && (
         <>
           <ChatMessages
             member={currentMember}
-            name={otherMember.profile.name}
+            name={otherMember.user.name || "default"}
             chatId={conversation.id}
             type="conversation"
             apiUrl="/api/direct-messages"
@@ -79,7 +82,7 @@ const MemberIdPage = async ({
             }}
           />
           <ChatInput
-            name={otherMember.profile.name}
+            name={otherMember.user.name || "username"}
             type="conversation"
             apiUrl="/api/socket/direct-messages"
             query={{
@@ -87,7 +90,7 @@ const MemberIdPage = async ({
             }}
           />
         </>
-      )} */}
+      )}
     </div>
    );
 }

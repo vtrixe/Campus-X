@@ -2,14 +2,14 @@ import { Server as NetServer } from "http";
 import { NextApiRequest } from "next";
 import { Server as ServerIO } from "socket.io";
 
-import { NextApiResponseServerIo } from "@/lib/types";
+import { NextApiResponseServerIo, NextApiResponseServerIoPages } from "@/lib/types";
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
+const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIoPages) => {
   if (!res.socket.server.io) {
     const path = "/api/socket/io";
     const httpServer: NetServer = res.socket.server as any;

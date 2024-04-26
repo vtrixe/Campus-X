@@ -12,6 +12,8 @@ import { LeaveServer } from "../dialogs/leave-server";
 import { DeleteServer } from "../dialogs/delete-server";
 import { EditChannel } from "../dialogs/edit-channel";
 import { DeleteChannel } from "../dialogs/delete-channel";
+import { Attachment } from "../dialogs/attachments";
+import { DeleteMessageModal } from "../dialogs/delete-message";
 export const Dialogs = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -34,6 +36,8 @@ export const Dialogs = () => {
        <DeleteServer />
        <EditChannel />
        <DeleteChannel />
+       <Attachment />
+       <DeleteMessageModal />
     </>
   )
 }
