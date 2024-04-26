@@ -6,6 +6,7 @@ import React from 'react'
 import { currentRole, currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { InitialModal } from "@/components/dialogs/initial-dialog-admin";
+import { JoinServerModal } from "@/components/dialogs/initial-dialog-user";
 
 
 const Setup = async () => {
@@ -37,7 +38,7 @@ const role = await currentRole();
 
         {role === "ADMIN"  && <InitialModal />}
 
-        {role === "USER" && <p>Join a Server</p>
+        {role === "USER" &&  <JoinServerModal />
         
         }
     

@@ -31,8 +31,8 @@ export const SocketProvider = ({
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL! || "http://localhost:3000", {
-      path: "/api/socket/io",
+    const socketInstance = new (ClientIO as any)(process.env.SOCKET_URL! || 'http://localhost:8000', {
+      path: "/socket/io",
       addTrailingSlash: false,
     });
 

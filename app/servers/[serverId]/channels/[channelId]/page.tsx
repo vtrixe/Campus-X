@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { ChatHeader } from "../_components/header";
 import { ChatInput } from "../_components/input";
 import { ChatMessages } from "../_components/messages";
+import { Conference } from "@/components/conference";
 
 interface ChannelIdPageProps {
   params: {
@@ -72,6 +73,21 @@ const ChannelIdPage = async ({
             }}
           />
         </>
+      )}
+
+{channel.type === ChannelType.AUDIO && (
+        <Conference
+          chatId={channel.id}
+          video={false}
+          audio={true}
+        />
+      )}
+      {channel.type === ChannelType.VIDEO && (
+        <Conference
+          chatId={channel.id}
+          video={true}
+          audio={true}
+        />
       )}
       
     </div>

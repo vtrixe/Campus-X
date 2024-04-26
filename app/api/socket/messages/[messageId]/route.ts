@@ -4,7 +4,7 @@ import { NextRequest , NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
 import { NextApiResponseServerIo } from "@/lib/types";
-
+import { revalidatePath } from "next/cache";
 export async function PATCH(
     req : NextRequest ,
     res : NextApiResponseServerIo,
@@ -129,6 +129,8 @@ export async function PATCH(
 
     res?.socket?.server?.io?.emit(updateKey, message);
 
+    revalidatePath(`/servers/${serverId}/conversations/${channelId}`);
+
     return NextResponse.json(message);
   } catch (error) {
     console.log("[MESSAGE_ID]", error);
@@ -219,7 +221,7 @@ export async function DELETE(req: NextRequest, res: NextApiResponseServerIo) {
           member: {
             include: {
               user : true,
-              
+
             }
           }
         }
@@ -227,6 +229,7 @@ export async function DELETE(req: NextRequest, res: NextApiResponseServerIo) {
   
       const updateKey = `chat:${channelId}:messages:update`;
       res?.socket?.server?.io?.emit(updateKey, { messageId, deleted: true });
+      revalidatePath(`/servers/${serverId}/conversations/${channelId}`);
   
       return new NextResponse("Successful Request", { status: 200 });
     } catch (error) {

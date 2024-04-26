@@ -4,6 +4,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { FaMarker } from "react-icons/fa";
 import { SocketIndicator } from "@/components/ui/indicator";
 import { MobileToggle } from "./toggle";
+import { ChatVideoButton } from "./video-button";
 
 interface ChatHeaderProps {
   serverId: string;
@@ -34,9 +35,9 @@ export const ChatHeader = ({
         {name}
       </p>
       <div className="ml-auto flex items-center">
-        {/* {type === "conversation" && (
-        //   <ChatVideoButton />
-        )} */}
+        {type === "conversation" && (
+          <ChatVideoButton />
+        )}
         <SocketIndicator />
       </div>
     </div>

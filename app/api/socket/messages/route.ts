@@ -3,6 +3,7 @@ import { NextApiResponseServerIo } from "@/lib/types";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 
 export  async function POST(
@@ -93,6 +94,8 @@ export  async function POST(
     });
 
     const channelKey = `chat:${channelId}:messages`;
+
+    revalidatePath(`/servers/${serverId}/conversations/${channelId}`);
 
     res?.socket?.server?.io?.emit(channelKey, message);
 

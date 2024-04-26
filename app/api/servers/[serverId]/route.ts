@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function DELETE(
   req: Request,
@@ -14,8 +15,10 @@ export async function DELETE(
     const server = await db.server.delete({
       where: { id: params.serverId, adminId: profile.id },
     });
+    revalidatePath(`/servers`)
     return NextResponse.json(server);
   } catch (error) {
+
     console.log("[SERVER_ID_DELETE]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
@@ -35,6 +38,7 @@ export async function PATCH(
       where: { id: params.serverId },
       data: { name, imageUrl, domain },
     });
+    revalidatePath(`/servers/${params.serverId}`)
     return NextResponse.json(server);
   } catch (error) {
     console.log("[SERVER_ID_PATCH]", error);

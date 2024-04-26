@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   req: Request,
@@ -27,6 +28,11 @@ export async function PATCH(
         inviteCode: uuidv4(),
       },
     });
+
+    revalidatePath(`/servers`)
+
+    revalidatePath(`/servers/${params.serverId}`)
+
 
     return NextResponse.json(server);
   } catch (error) {

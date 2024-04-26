@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Message } from "@prisma/client";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 const MESSAGES_BATCH = 10;
 
@@ -71,6 +72,7 @@ export async function GET(
     if (messages.length === MESSAGES_BATCH) {
       nextCursor = messages[MESSAGES_BATCH - 1].id;
     }
+
 
     return NextResponse.json({
       items: messages,

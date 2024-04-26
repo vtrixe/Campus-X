@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   req: Request,
@@ -36,6 +37,8 @@ export async function PATCH(
         }
       }
     });
+
+    revalidatePath(`/servers`)
 
     return NextResponse.json(server);
   } catch (error) {

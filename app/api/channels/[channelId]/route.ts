@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function DELETE(
   req: Request,
@@ -48,6 +49,8 @@ export async function DELETE(
         }
       }
     });
+    revalidatePath(`/servers/${serverId}`)
+    revalidatePath(`/servers/${serverId}/channels`)
 
     return NextResponse.json(server);
   } catch (error) {
@@ -112,6 +115,10 @@ export async function PATCH(
         }
       }
     });
+
+    revalidatePath(`/servers/${serverId}`)
+    revalidatePath(`/servers/${serverId}/channels`)
+    revalidatePath(`/servers/${serverId}/channels/${params.channelId}`)
 
     return NextResponse.json(server);
   } catch (error) {

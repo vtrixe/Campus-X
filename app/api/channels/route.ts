@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function POST(
   req: Request
@@ -23,8 +24,8 @@ export async function POST(
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
-    if (name === "general") {
-      return new NextResponse("Name cannot be 'general'", { status: 400 });
+    if (name === "Root") {
+      return new NextResponse("Name cannot be 'Root'", { status: 400 });
     }
 
     const server = await db.server.update({
@@ -50,7 +51,10 @@ export async function POST(
       }
     });
 
+    revalidatePath(`/servers/${serverId}`)
+
     return NextResponse.json(server);
+
   } catch (error) {
     console.log("CHANNELS_POST", error);
     return new NextResponse("Internal Error", { status: 500 });

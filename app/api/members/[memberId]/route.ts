@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { currentRole, currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function DELETE(
   req: Request,
@@ -50,6 +51,11 @@ export async function DELETE(
         },
       },
     });
+
+    revalidatePath(`/servers/${serverId}`)
+    revalidatePath(`/servers/${serverId}/conversations`)
+    revalidatePath(`/servers/${serverId}/conversations/${params.memberId}`)
+
 
     return NextResponse.json(server);
   } catch (error) {

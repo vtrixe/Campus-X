@@ -3,6 +3,7 @@ import {v4 as uuidv4 } from "uuid";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { currentRole } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 
 export async function POST (req : NextRequest){
@@ -51,6 +52,9 @@ export async function POST (req : NextRequest){
             
             
         })
+
+        revalidatePath(`/servers`)
+    
         return NextResponse.json(server);
 
 

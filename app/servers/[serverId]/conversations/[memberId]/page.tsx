@@ -7,6 +7,7 @@ import { currentUser } from "@/lib/auth";
 import { ChatHeader } from "../../channels/_components/header";
 import { ChatMessages } from "../../channels/_components/messages";
 import { ChatInput } from "../../channels/_components/input";
+import { Conference } from "@/components/conference";
 
 
 interface MemberIdPageProps {
@@ -59,13 +60,13 @@ const user = await currentUser();
         serverId={params.serverId}
         type="conversation"
       />
-      {/* {searchParams.video && (
-        <MediaRoom
+      {searchParams.video && (
+        <Conference
           chatId={conversation.id}
           video={true}
           audio={true}
         />
-      )} */}
+      )}
       {!searchParams.video && (
         <>
           <ChatMessages
