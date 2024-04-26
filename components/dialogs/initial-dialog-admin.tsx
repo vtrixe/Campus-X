@@ -31,14 +31,11 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: "Server name is required."
   }),
-  imageUrl: z.string().min(1, {
-    message: "Server image is required."
-  }),
+  imageUrl: z.string().optional(), // Make imageUrl field optional
   domain: z.string().min(1, {
     message: "Domain is required."
   })
 });
-
 export const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -90,21 +87,25 @@ export const InitialModal = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
               <div className="flex items-center justify-center text-center">
-                <FormField
-                  control={form.control}
-                  name="imageUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <FileUpload
-                          endpoint="serverImage"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+              <FormField
+  control={form.control}
+  name="imageUrl"
+  render={({ field }) => (
+    <FormItem>
+      <FormControl>
+        {field.value ? (
+          <FileUpload
+            endpoint="serverImage"
+            value={field.value}
+            onChange={field.onChange}
+          />
+        ) : (
+          <div>No image uploaded</div>
+        )}
+      </FormControl>
+    </FormItem>
+  )}
+/>
               </div>
 
               <FormField
