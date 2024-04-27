@@ -32,6 +32,7 @@ export const Actions = async () => {
           </Button>
           <Button
             size='sm'
+            id=' Setup'
             variant='ghost'
             className='text-muted-foreground hover:text-primary'
             asChild
