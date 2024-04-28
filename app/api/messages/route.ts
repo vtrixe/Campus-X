@@ -73,7 +73,6 @@ export async function GET(
       nextCursor = messages[MESSAGES_BATCH - 1].id;
     }
 
-
     return NextResponse.json({
       items: messages,
       nextCursor

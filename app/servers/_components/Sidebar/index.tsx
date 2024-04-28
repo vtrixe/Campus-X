@@ -10,9 +10,11 @@ import { NavigationAction } from "./actions";
 import { Actions } from "@/app/(protected)/_components/navbar/actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { DashboardIcon } from "@radix-ui/react-icons";
+import { DashboardIcon, ExitIcon } from "@radix-ui/react-icons";
 import { UserButton } from "@/components/auth/user-button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { LogoutButton } from "@/components/auth/logout-button";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 export const Sidebar = async (): Promise<JSX.Element> => {
   const session = await currentUser();
@@ -46,16 +48,19 @@ export const Sidebar = async (): Promise<JSX.Element> => {
         <Button
             size="sm"
             variant="ghost"
-            className="text-muted-foreground hover:text-primary flex items-start "
+            className="text-muted-foreground hover:text-primary  "
             asChild
           >
-            <Link href={`/settings`} className="flex items-start">
-              <DashboardIcon className="h-5 w-5 mr-2" />
+            <Link href={`/settings`} className="">
+              <DashboardIcon className="mr-2" />
               <span>User Settings</span>
             </Link>
           </Button>
-          <UserButton />
           <ModeToggle />
+          <LogoutButton>
+            <ExitIcon className='h-4 w-4 mr-2' />
+        </LogoutButton>
+          
         </div>
       </Wrapper>
     </>

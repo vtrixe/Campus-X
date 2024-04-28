@@ -10,9 +10,9 @@ import { produceMessage } from './services/kafka';
 const server = http.createServer();
 
 
-  // const pub = new Redis("");
-  // console.log("Successfully connected PUb");
-  // const sub = new Redis("");
+  const pub = new Redis("");
+  console.log("Successfully connected PUb");
+  const sub = new Redis("");
 
 
 const io = new SocketIOServer(server, {

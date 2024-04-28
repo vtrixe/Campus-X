@@ -12,17 +12,22 @@ export const JoinServerModal = () => {
   const [isOpen, setIsOpen] = useState(true); // Set isOpen to true initially
   const [inviteLink, setInviteLink] = useState("");
 
+
+
+
   const handleJoin = () => {
     const inviteCode = inviteLink.split("/").pop();
     if (inviteCode) {
       router.push(`/invite/${inviteCode}`);
     } else {
-      // Handle invalid invite link
+
+        return new Error("No invite code");
+
     }
   };
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={isOpen} >
       <DialogHeader>
         <DialogTitle>Join Server</DialogTitle>
       </DialogHeader>
