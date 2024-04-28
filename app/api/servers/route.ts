@@ -15,11 +15,13 @@ export async function POST(req: NextRequest) {
     }
 
     const adminId = user?.id;
+
     if (!adminId) {
-      return null;
+      return new NextResponse("Unauthorized Action", { status: 401 });
     }
 
     const { name, imageUrl = "", domain } = await req.json();
+
     const profile = await currentProfile();
 
     if (!profile) {
@@ -47,7 +49,13 @@ export async function POST(req: NextRequest) {
     });
 
     revalidatePath(`/servers`);
-    return NextResponse.json(server);
+
+    return new NextResponse(JSON.stringify(server), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error) {
     console.log(error);
     return new NextResponse("Internal server error", { status: 500 });

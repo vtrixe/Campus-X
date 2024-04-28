@@ -1,5 +1,7 @@
 "use client";
 
+//@ts-ignore
+
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
@@ -56,10 +58,10 @@ export const LoginForm = () => {
             setError(data.error);
           }
 
-          if (data?.success) {
-            form.reset();
-            setSuccess(data.success);
-          }
+          // if (data?.success) {
+          //   form.reset();
+          //   setSuccess(data.success);
+          // }
 
           if (data?.twoFactor) {
             setShowTwoFactor(true);
