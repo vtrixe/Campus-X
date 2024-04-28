@@ -54,7 +54,7 @@ export const SocketProvider = ({
   }, []);
 
   useEffect(() => {
-    const socketInstance = new (ClientIO as any)('https://socket-io-5wuv.onrender.com/', {
+    const socketInstance = new (ClientIO as any)('https://socket-io-5wuv.onrender.com', {
       path: "/socket/io",
       addTrailingSlash: false,
     });
