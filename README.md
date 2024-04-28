@@ -1,4 +1,4 @@
-Here's a README.md file for your project, with placeholders for sensitive information:
+
 Collaborator
 Collaborator is a real-time collaboration platform that allows admins to create servers and users to join them via invite links. It features real-time messaging, in-house video conferencing, file uploads, and roles and permissions.
 Tech Stack
