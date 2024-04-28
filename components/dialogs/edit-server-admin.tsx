@@ -59,7 +59,7 @@ export const EditServerAdmin = () => {
   useEffect(() => {
     if (server) {
       form.setValue("name", server.name);
-      form.setValue("imageUrl", server.imageUrl);
+      form.setValue("imageUrl", server.imageUrl || "https://imgs.search.brave.com/4ycNyuHKgXwDHzBplPwPQyBukX6eCB0sx2sWc8Qzqbs/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1LzU0LzE0LzY3/LzM2MF9GXzU1NDE0/NjcyNl9WWmZ5UEw2/TmlOVE1CeFFKNjhU/YmpzWkJDckZDZVZm/UC5qcGc");
       form.setValue("domain", server.domain || "domain");
     }
   }, [server, form]);

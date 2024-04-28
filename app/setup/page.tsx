@@ -34,7 +34,7 @@ const role = await currentRole();
       }
   return (
 
-    <div>
+    <div suppressHydrationWarning>
 
         {role === "ADMIN"  && <InitialModal />}
 

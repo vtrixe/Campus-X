@@ -19,9 +19,9 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { register } from "@/actions/register";
+import { AdminRegister } from "@/actions/admin-register";
 
-export const RegisterForm = () => {
+export const AdminRegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -40,7 +40,7 @@ export const RegisterForm = () => {
     setSuccess("");
 
     startTransition(() => {
-      register(values).then((data) => {
+      AdminRegister(values).then((data) => {
         setError(data.error);
         setSuccess(data.success);
       });

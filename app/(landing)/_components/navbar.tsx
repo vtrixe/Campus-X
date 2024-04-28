@@ -9,29 +9,30 @@ export const Navbar = async () => {
   const user = await currentUser();
 
   return (
-    <div className="fixed top-0 w-full h-14 px-4 border-b shadow-sm bg bg-white dark:bg-black flex items-center">
-      <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
+    <div className='fixed top-0 w-full h-14 px-4 border-b shadow-sm bg bg-white dark:bg-black flex items-center'>
+      <div className='md:max-w-screen-2xl mx-auto flex items-center w-full justify-between'>
         <Logo />
-        <div className="space-x-4 md:block md:w-auto flex items-center justify-between w-full">
+        <div className='space-x-4 md:block md:w-auto flex items-center justify-between w-full'>
           {user ? (
-      <>
-            <Button size="sm" variant="outline" asChild>
-              <Link href="/settings">Dashboard</Link>
-            </Button>
-            <Button size="sm" variant="outline" asChild>
-              <UserButton />
-            </Button>
-
+            <>
+              <Button size='sm' variant='outline' asChild>
+                <Link href='/settings'>Dashboard</Link>
+              </Button>
+              <Button size='sm' variant='outline' asChild>
+                <UserButton />
+              </Button>
             </>
-       
-
           ) : (
             <>
-              <Button size="sm" variant="outline" asChild>
-                <Link href="/auth/login">Login</Link>
+              <Button size='sm' variant='outline' asChild>
+                <Link id='Login' href='/auth/login'>
+                  Login
+                </Link>
               </Button>
-              <Button size="sm" asChild>
-                <Link href="/auth/signup">Sign Up</Link>
+              <Button size='sm' asChild>
+                <Link id='SignUp' href='/auth/register'>
+                  Sign Up
+                </Link>
               </Button>
             </>
           )}

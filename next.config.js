@@ -11,7 +11,8 @@ const nextConfig = {
     images: {
       domains: [
         "uploadthing.com",
-        "utfs.io"
+        "utfs.io",
+        "imgs.search.brave.com"
       ]
     }
   }

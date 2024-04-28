@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { DirectMessage } from "@prisma/client";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 const MESSAGES_BATCH = 10;
 

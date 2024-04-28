@@ -26,7 +26,7 @@ export const Servers = ({ data }: ServersProps) => {
             key={server.id}
             id={server.id}
             name={server.name || "Unknown"}
-            imageUrl={server.imageUrl || "defaultImageURL"}
+            imageUrl={server.imageUrl || "https://imgs.search.brave.com/4ycNyuHKgXwDHzBplPwPQyBukX6eCB0sx2sWc8Qzqbs/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1LzU0LzE0LzY3/LzM2MF9GXzU1NDE0/NjcyNl9WWmZ5UEw2/TmlOVE1CeFFKNjhU/YmpzWkJDckZDZVZm/UC5qcGc"}
             description={""}
           />
         ))}

@@ -20,6 +20,8 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@prisma/client": "^5.13.0"
+    "@prisma/client": "^5.13.0",
+    "ioredis": "^5.4.1",
+    "kafkajs": "^2.2.4"
   }
 }

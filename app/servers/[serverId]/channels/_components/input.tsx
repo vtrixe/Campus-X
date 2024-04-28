@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSocket } from "@/components/providers/socket-provider";
 
 import {
   Form,
@@ -17,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useDialog } from "@/zustand/use-dialogs";
 import { EmojiPicker } from "./emojis";
+import { useState } from "react";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -47,6 +49,9 @@ export const ChatInput = ({
 
   const isLoading = form.formState.isSubmitting;
 
+  const { sendMessage, messages } = useSocket();
+  const [message, setMessage] = useState("");
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
@@ -56,11 +61,15 @@ export const ChatInput = ({
 
       await axios.post(url, values);
 
+      sendMessage(values.content);
+
       form.reset();
       router.refresh();
+
     } catch (error) {
       console.log(error);
     }
+    
   }
 
   return (
@@ -85,6 +94,7 @@ export const ChatInput = ({
                     className="px-14 py-6  border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 "
                     placeholder={`Message ${type === "conversation" ? name : "" + name}`}
                     {...field}
+                    // onChange={(e) => setMessage(e.target.value)}
                   />
                   <div className="absolute top-7 right-8">
                     <EmojiPicker
