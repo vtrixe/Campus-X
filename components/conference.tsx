@@ -53,7 +53,7 @@ export const Conference = ({
   return (
     <LiveKitRoom
       data-lk-theme="default"
-      serverUrl={process.env.LIVEKIT_URL}
+      serverUrl={process.env.LIVEKIT_URL || 'wss://campusx-q3d7i5zo.livekit.cloud'}
       token={token}
       connect={true}
       video={video}
