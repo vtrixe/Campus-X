@@ -33,34 +33,33 @@ export const Sidebar = async (): Promise<JSX.Element> => {
     <>
       <Wrapper>
         <Toggle />
-        <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
-        <ScrollArea className="flex-1 w-full">
+        <Separator className='h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto' />
+        <ScrollArea className='flex-1 w-full'>
           <Servers data={servers} />
           {role === "ADMIN" && <NavigationAction />}
           {role === "USER" && <p>Join another Server</p>}
         </ScrollArea>
 
         {/* Separator */}
-        <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-full mx-auto my-4" />
+        <Separator className='h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-full mx-auto my-4' />
 
         {/* Div for vertical alignment */}
-        <div className="flex flex-col gap-4 mb-4 ml-4">
-        <Button
-            size="sm"
-            variant="ghost"
-            className="text-muted-foreground hover:text-primary  "
+        <div className='flex flex-col gap-4 mb-4 ml-4'>
+          <Button
+            size='sm'
+            variant='ghost'
+            className='text-muted-foreground hover:text-primary  '
             asChild
           >
-            <Link href={`/settings`} className="">
-              <DashboardIcon className="mr-2" />
+            <Link href={`/settings`} className=''>
+              <DashboardIcon className='mr-2' />
               <span>User Settings</span>
             </Link>
           </Button>
           <ModeToggle />
           <LogoutButton>
             <ExitIcon className='h-4 w-4 mr-2' />
-        </LogoutButton>
-          
+          </LogoutButton>
         </div>
       </Wrapper>
     </>
@@ -68,7 +67,7 @@ export const Sidebar = async (): Promise<JSX.Element> => {
 };
 export const SidebarSkeleton = () => {
   return (
-    <aside className="fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r border-[#2D2E35] z-50">
+    <aside className='fixed left-0 flex flex-col w-[70px] lg:w-60 h-full bg-background border-r border-[#2D2E35] z-50'>
       <ToggleSkeleton />
     </aside>
   );
