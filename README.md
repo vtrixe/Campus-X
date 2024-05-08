@@ -1,5 +1,5 @@
 Collaborator
-<img src="https://user-images.githubusercontent.com/64391274/233866998-dd7cc8f6-3629-4cd7-8b70-a7bc7f4e4a8d.png" alt="Collaborator Logo" width="200" height="200">
+
 Collaborator is a real-time collaboration platform that allows admins to create servers and users to join them via invite links. It features real-time messaging, in-house video conferencing, file uploads, and roles and permissions.
 Tech Stack
 
